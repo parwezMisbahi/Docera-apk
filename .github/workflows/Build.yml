@@ -9,6 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: unzip -q project_ready.zip -d work
+      - name: Download PDF libraries
+        run: |
+          A=work/app/src/main/assets
+          B=https://cdnjs.cloudflare.com/ajax/libs
+          curl -fsSL --retry 3 -o $A/pdf.min.js $B/pdf.js/3.11.174/pdf.min.js
+          curl -fsSL --retry 3 -o $A/pdf.worker.min.js $B/pdf.js/3.11.174/pdf.worker.min.js
+          curl -fsSL --retry 3 -o $A/html2canvas.min.js $B/html2canvas/1.4.1/html2canvas.min.js
+          curl -fsSL --retry 3 -o $A/jspdf.umd.min.js $B/jspdf/2.5.1/jspdf.umd.min.js
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
       - uses: gradle/actions/setup-gradle@v4
